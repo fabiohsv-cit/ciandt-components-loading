@@ -1,6 +1,6 @@
 # ciandt-components-loading
-Loading component written in angularjs. This component install an http interceptor that start a loading icon and close after response. It's use the angular-loading-bar component, it's a complement. The angular-loading-bar create a loading without block the page and, if necessary, use ciandt-components-loading to show loading block the page.
-A plus feature is available, it's possible show a message after responses where the request submit a json and this request don't use GET method. See more below.
+Loading component written in angularjs. This component install an http interceptor that starts a loading icon and close it after the response.  it's a complement to the angular-loading-bar component. The angular-loading-bar run without blocking the page and, if necessary, you can use ciandt-components-loading to show a loading sign that blocks the page. 
+Another feature is available, it's possible to show a message after responses where the requests submit a json and this requests are not a GET method. See more below.
 
 ### Install
 
