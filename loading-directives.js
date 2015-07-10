@@ -8,7 +8,7 @@ define(['angular'], function (app) {
                 if (attrs.templateUrl) {
                     return attrs.templateUrl;
                 } else {
-                    return "app/common/components/loading/loading.html";
+                    return "assets/libs/ciandt-components-loading/loading.html";
                 }
             }
         };
