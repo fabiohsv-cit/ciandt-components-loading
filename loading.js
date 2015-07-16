@@ -22,13 +22,7 @@ define(['angular-animate', 'angular-loading-bar', 'ciandt-components-dialogs', '
                 }
 
                 if ((showLoadingModalDefined && showLoadingModal) || (!showLoadingModalDefined && LoadingConfig.enableLoadingBlock)) {
-                    $timeout(function () {
-                        var $http = $injector.get('$http');
-                        if ($http.pendingRequests.length > 0) {
-                            $('#loadingModal').modal('show');
-                        }
-                    }, 300);
-					config.ignoreLoadingBar = true;
+                    $('#loadingModal').modal('show');
                 }
 
                 return config;
