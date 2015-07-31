@@ -1,14 +1,14 @@
 ﻿"use strict";
 
 define(['angular'], function (app) {
-    angular.module("ciandt.components.loading.directives", []).directive("appLoading", [function () {
+    angular.module("jedi.loading.directives", []).directive("jdLoading", [function () {
         return {
             restrict: 'E',
             templateUrl: function (elem, attrs) {
                 if (attrs.templateUrl) {
                     return attrs.templateUrl;
                 } else {
-                    return "assets/libs/ciandt-components-loading/loading.html";
+                    return "assets/libs/ng-jedi-loading/loading.html";
                 }
             }
         };

@@ -1,14 +1,14 @@
 {
-  "name": "ciandt-components-loading",
+  "name": "ng-jedi-loading",
   "version": "0.0.1",
-  "homepage": "https://github.com/fabiohsv-cit/ciandt-components-loading",
+  "homepage": "https://github.com/ng-jedi/loading",
   "authors": [
-    "Fábio Henrique da Silva Viana <fabiohsv@ciandt.com>"
+    "Fábio Henrique da Silva Viana <fabioviana.bh@gmail.com>"
   ],
   "description": "Loading component written in angularjs",
   "main": ["loading.js", "loading-directives.js", "loading.html"],
   "dependencies": {
-	"ciandt-components-dialogs": "*"
+	"ng-jedi-dialogs": "*"
   },
   "moduleType": [
     "globals"

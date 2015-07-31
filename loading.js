@@ -1,16 +1,16 @@
 ﻿'use strict';
 
-define(['angular-animate', 'angular-loading-bar', 'ciandt-components-dialogs', 'ciandt-components-loading-directives'], function () {
+define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-loading-directives'], function () {
 
-    angular.module('ciandt.components.loading', ['ngAnimate', 'angular-loading-bar', 'ciandt.components.loading.directives', 'ciandt.components.dialogs']).constant('ciandt.components.loading.LoadingConfig', {
+    angular.module('jedi.loading', ['ngAnimate', 'angular-loading-bar', 'jedi.loading.directives', 'jedi.dialogs']).constant('jedi.loading.LoadingConfig', {
         enableInfoAfterResponse: false,
         infoAfterResponseMessage: 'Operação realizada com sucesso.',
         enableLoadingBar: true,
         enableLoadingBlock: false,
-    }).factory('ciandt.components.loading.LoadingInterceptor', ['$q', '$injector', '$timeout', 'ciandt.components.loading.LoadingConfig', function ($q, $injector, $timeout, LoadingConfig) {
+    }).factory('jedi.loading.LoadingInterceptor', ['$q', '$injector', '$timeout', 'jedi.loading.LoadingConfig', function ($q, $injector, $timeout, LoadingConfig) {
         var alertHelper;
         if (LoadingConfig.enableInfoAfterResponse) {
-            alertHelper = $injector.get('ciandt.components.dialogs.AlertHelper');
+            alertHelper = $injector.get('jedi.dialogs.AlertHelper');
         }
         return {
             request: function (config) {
@@ -45,7 +45,7 @@ define(['angular-animate', 'angular-loading-bar', 'ciandt-components-dialogs', '
         $log.info('Registrando mecanismo de loading.');
         // coloca este interceptor para ser executado primeiro, pra garantir que o loading-bar seja depois e o ignoreLoadingBar funcionar
         var _0 = $httpProvider.interceptors[0];
-        $httpProvider.interceptors[0] = 'ciandt.components.loading.LoadingInterceptor';
+        $httpProvider.interceptors[0] = 'jedi.loading.LoadingInterceptor';
         $httpProvider.interceptors.push(_0);
     }]);
 
