@@ -9,6 +9,11 @@ Another feature is available, it's possible to show a message after responses wh
    ```shell
    bower install ng-jedi-loading --save
    ```
+   * Add loading.css to your code:
+
+   ```html
+   <link rel='stylesheet' href='assets/css/loading.css' type='text/css' media='all' />
+   ```
 * Add loading.js and loading-directives.js to your code:
 
    ```html
