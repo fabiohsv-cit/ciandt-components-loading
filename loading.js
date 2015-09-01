@@ -34,7 +34,9 @@ define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-lo
                 return $q.reject(rejection);
             },
             response: function (response) {
-                if ($injector.get('$http').pendingRequests < 1 && $('#loadingModal').hasClass('in')) {
+                var showLoadingModal = response.config.showLoadingModal || response.config.headers.showLoadingModal || (response.config.params && response.config.params.showLoadingModal);
+                //Only hides loading modal when has no pending requests, the modal is open and the modal was open by this directive.
+                if ($injector.get('$http').pendingRequests < 1 && $('#loadingModal').hasClass('in') && showLoadingModal) {
                     $('#loadingModal').modal('hide');
                 }
                 if (LoadingConfig.enableInfoAfterResponse && (response.headers()['content-type'] && response.headers()['content-type'].toUpperCase().indexOf('JSON') >= 0) && (response.config.method.toUpperCase() != 'GET')) {
