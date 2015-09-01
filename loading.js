@@ -17,7 +17,7 @@ define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-lo
                 var showLoadingModalDefined = angular.isDefined(config.showLoadingModal) || angular.isDefined(config.headers.showLoadingModal) || (angular.isDefined(config.params) && angular.isDefined(config.params.showLoadingModal));
                 var showLoadingModal = config.showLoadingModal || config.headers.showLoadingModal || (config.params && config.params.showLoadingModal);
 
-				if (angular.isUndefined(config.ignoreLoadingBar)) {
+                if (angular.isUndefined(config.ignoreLoadingBar)) {
                     config.ignoreLoadingBar = !LoadingConfig.enableLoadingBar;
                 }
 
@@ -27,15 +27,25 @@ define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-lo
 
                 return config;
             },
+            requestError: function (rejection) {
+                if ($injector.get('$http').pendingRequests < 1 && $('#loadingModal').hasClass('in')) {
+                    $('#loadingModal').modal('hide');
+                }
+                return $q.reject(rejection);
+            },
             response: function (response) {
-                $('#loadingModal').modal('hide');
+                if ($injector.get('$http').pendingRequests < 1 && $('#loadingModal').hasClass('in')) {
+                    $('#loadingModal').modal('hide');
+                }
                 if (LoadingConfig.enableInfoAfterResponse && (response.headers()['content-type'] && response.headers()['content-type'].toUpperCase().indexOf('JSON') >= 0) && (response.config.method.toUpperCase() != 'GET')) {
                     alertHelper.addInfo(LoadingConfig.infoAfterResponseMessage);
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
-                $('#loadingModal').modal('hide');
+                if ($injector.get('$http').pendingRequests < 1 && $('#loadingModal').hasClass('in')) {
+                    $('#loadingModal').modal('hide');
+                }
                 return $q.reject(rejection);
             }
         }
