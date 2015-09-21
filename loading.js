@@ -49,7 +49,7 @@ define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-lo
                 }
 
 
-                if (LoadingConfig.enableInfoAfterResponse && (response.headers()['content-type'] && response.headers()['content-type'].toUpperCase().indexOf('JSON') >= 0) && (response.config.method.toUpperCase() != 'GET')) {
+                if (LoadingConfig.enableInfoAfterResponse && (response.headers()['content-type'] && response.headers()['content-type'].toUpperCase().indexOf('JSON') >= 0) && (response.config.method.toUpperCase() !== 'GET')) {
                     alertHelper.addInfo(LoadingConfig.infoAfterResponseMessage);
                 }
                 return response || $q.when(response);
