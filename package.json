@@ -1,0 +1,29 @@
+{
+  "name": "ng-jedi-loading",
+  "version": "0.0.1",
+  "description": "Loading component for your application.\r ###### Written in [AngularJs](https://angularjs.org/)",
+  "main": "loading-directives.js",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.4.7"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-uglify": "^0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jediproject/ng-jedi-loading.git"
+  },
+  "author": "Jedi Project",
+  "homepage": "http://jediproject.github.io",
+  "keywords": [
+    "loading",
+    "jedi",
+    "component"
+  ]
+}

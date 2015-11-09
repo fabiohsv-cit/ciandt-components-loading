@@ -1,7 +1,21 @@
 ﻿'use strict';
 
-define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-loading-directives'], function() {
+define(['angular'], function (app) {
+    angular.module("jedi.loading.directives", []).directive("jdLoading", [function () {
+        return {
+            restrict: 'E',
+            templateUrl: function (elem, attrs) {
+                if (attrs.templateUrl) {
+                    return attrs.templateUrl;
+                } else {
+                    return "assets/libs/ng-jedi-loading/loading.html";
+                }
+            }
+        };
+    }]);
+});
 
+define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-loading-directives'], function() {
     angular.module('jedi.loading', ['ngAnimate', 'angular-loading-bar', 'jedi.loading.directives', 'jedi.dialogs']).constant('jedi.loading.LoadingConfig', {
         enableInfoAfterResponse: false,
         infoAfterResponseMessage: 'Operação realizada com sucesso.',
