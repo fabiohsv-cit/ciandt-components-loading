@@ -1,6 +1,17 @@
 ﻿'use strict';
 
-define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-loading-directives'], function() {
+(function (factory) {
+    if (typeof define === 'function') {
+        define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-loading-directives'], factory);
+    } else {
+        if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
+            module.exports = 'jedi.loading';
+            require('angular-loading-bar');
+            require('ng-jedi-loading-directives');
+        }
+        return factory();
+    }
+}(function() {
 
     angular.module('jedi.loading', ['ngAnimate', 'angular-loading-bar', 'jedi.loading.directives', 'jedi.dialogs']).constant('jedi.loading.LoadingConfig', {
         enableInfoAfterResponse: false,
@@ -74,4 +85,4 @@ define(['angular-animate', 'angular-loading-bar', 'ng-jedi-dialogs', 'ng-jedi-lo
         $httpProvider.interceptors.unshift('jedi.loading.LoadingInterceptor');
     }]);
 
-});
+}));

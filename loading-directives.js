@@ -1,6 +1,16 @@
 ﻿"use strict";
 
-define(['angular'], function (app) {
+(function (factory) {
+    if (typeof define === 'function') {
+        define(['angular'], factory);
+    } else {
+        if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
+            module.exports = 'jedi.loading.directives';
+        }
+        return factory();
+    }
+}(function() {
+
     angular.module("jedi.loading.directives", []).directive("jdLoading", [function () {
         return {
             restrict: 'E',
@@ -13,4 +23,5 @@ define(['angular'], function (app) {
             }
         };
     }]);
-});
+
+}));
