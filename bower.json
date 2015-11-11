@@ -6,7 +6,7 @@
     "Fábio Henrique da Silva Viana <fabioviana.bh@gmail.com>"
   ],
   "description": "Loading component written in angularjs",
-  "main": ["loading.js", "loading-directives.js", "loading.html"],
+  "main": ["loading.js", "loading.css", "loading.html"],
   "dependencies": {
 	"ng-jedi-dialogs": "*"
   },
