@@ -1,4 +1,4 @@
-# ng-jedi-loading
+# [ng-jedi-loading](https://github.com/jediproject/ng-jedi-loading)
 Loading component for your application.
 ###### Written in [AngularJs](https://angularjs.org/)
 
