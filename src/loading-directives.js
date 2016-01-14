@@ -1,16 +1,17 @@
-﻿    angular.module("jedi.loading.directives", []).directive("jdLoading", [function () {
+﻿    angular.module("jedi.loading.directives", []).directive("jdLoading",  ["jedi.loading.LoadingConfig", function (LoadingConfig) {
         return {
             restrict: 'E',
-            templateUrl: function (elem, attrs) {
+            replace: true,
+            template: function (elem, attrs) {                
                 if (attrs.templateUrl) {
-                    return attrs.templateUrl;
-                } else {
-                    return "assets/libs/ng-jedi-loading/loading.html";
-                }
+                    LoadingConfig.templateUrl = attrs.templateUrl;
+                } 
+                
+                return '<span />';
             }
         };
     }]).run(['$templateCache', function($templateCache) {
-        $templateCache.put('assets/libs/ng-jedi-loading/loading.html',  '<div class="modal" id="loadingModal" data-backdrop="static">'+
+         $templateCache.put('assets/libs/ng-jedi-loading/loading.html', '<div class="modal" style="display:block;" id="loadingModal" data-backdrop="static">'+
                                                                         '    <div class="outer">'+
                                                                         '        <div class="inner">'+
                                                                         '            <div class="modal-dialog text-center">'+

@@ -83,7 +83,7 @@ Also it's possible to show a message after responses where the requests submit a
 #### Use the templateUrl attribute to customize the default template
 
    ```html
-   <jd-loading templateUrl="app/common/components/loading/loading.html"></jd-loading>
+   <jd-loading template-url="app/common/components/loading/loading.html"></jd-loading>
    ```
    - The default template is stored in ng-jedi-loading/loading.html
 

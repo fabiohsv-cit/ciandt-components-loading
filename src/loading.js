@@ -3,12 +3,15 @@
         infoAfterResponseMessage: 'Operação realizada com sucesso.',
         enableLoadingBar: true,
         enableLoadingBlock: false,
+        templateUrl: "assets/libs/ng-jedi-loading/loading.html"
     }).factory('jedi.loading.LoadingInterceptor', ['$q', '$injector', '$timeout', 'jedi.loading.LoadingConfig', function($q, $injector, $timeout, LoadingConfig) {
         var alertHelper;
         var loadingModalCounter = 0;
         if (LoadingConfig.enableInfoAfterResponse) {
             alertHelper = $injector.get('jedi.dialogs.AlertHelper');
         }
+        
+        var $modal, $modalInstance;
         return {
             request: function(config) {
                 var showLoadingModalDefined = angular.isDefined(config.showLoadingModal) || angular.isDefined(config.headers.showLoadingModal) || (angular.isDefined(config.params) && angular.isDefined(config.params.showLoadingModal));
@@ -19,7 +22,18 @@
                 }
 
                 if ((showLoadingModalDefined && showLoadingModal) || (!showLoadingModalDefined && LoadingConfig.enableLoadingBlock)) {
-                    $('#loadingModal').modal('show');
+                    if (!$modal) {
+                        // Load modal lazily to avoid circular dependency
+                        $modal = $injector.get('$modal');
+                    }
+                    
+                    $modalInstance = $modal.open({
+                        templateUrl: LoadingConfig.templateUrl,
+                        windowTemplateUrl: LoadingConfig.templateUrl,
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'alert-modal-window'
+                    });
                     loadingModalCounter++;
                     config.openLoadingModal = true;
                 }
@@ -29,8 +43,8 @@
             requestError: function(rejection) {
                 if (rejection.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 
@@ -39,8 +53,8 @@
             response: function(response) {
                 if (response.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 
@@ -52,8 +66,8 @@
             responseError: function(rejection) {
                 if (rejection.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 

@@ -1,5 +1,5 @@
 /*
- ng-jedi-loading v0.0.1
+ ng-jedi-loading v0.0.2
  Loading component written in angularjs
  https://github.com/jediproject/ng-jedi-loading
 */
@@ -16,19 +16,20 @@
 }(function() {
 	"use strict";
 
-    angular.module("jedi.loading.directives", []).directive("jdLoading", [function () {
+    angular.module("jedi.loading.directives", []).directive("jdLoading",  ["jedi.loading.LoadingConfig", function (LoadingConfig) {
         return {
             restrict: 'E',
-            templateUrl: function (elem, attrs) {
+            replace: true,
+            template: function (elem, attrs) {                
                 if (attrs.templateUrl) {
-                    return attrs.templateUrl;
-                } else {
-                    return "assets/libs/ng-jedi-loading/loading.html";
-                }
+                    LoadingConfig.templateUrl = attrs.templateUrl;
+                } 
+                
+                return '<span />';
             }
         };
     }]).run(['$templateCache', function($templateCache) {
-        $templateCache.put('assets/libs/ng-jedi-loading/loading.html',  '<div class="modal" id="loadingModal" data-backdrop="static">'+
+         $templateCache.put('assets/libs/ng-jedi-loading/loading.html', '<div class="modal" style="display:block;" id="loadingModal" data-backdrop="static">'+
                                                                         '    <div class="outer">'+
                                                                         '        <div class="inner">'+
                                                                         '            <div class="modal-dialog text-center">'+
@@ -56,12 +57,15 @@
         infoAfterResponseMessage: 'Operação realizada com sucesso.',
         enableLoadingBar: true,
         enableLoadingBlock: false,
+        templateUrl: "assets/libs/ng-jedi-loading/loading.html"
     }).factory('jedi.loading.LoadingInterceptor', ['$q', '$injector', '$timeout', 'jedi.loading.LoadingConfig', function($q, $injector, $timeout, LoadingConfig) {
         var alertHelper;
         var loadingModalCounter = 0;
         if (LoadingConfig.enableInfoAfterResponse) {
             alertHelper = $injector.get('jedi.dialogs.AlertHelper');
         }
+        
+        var $modal, $modalInstance;
         return {
             request: function(config) {
                 var showLoadingModalDefined = angular.isDefined(config.showLoadingModal) || angular.isDefined(config.headers.showLoadingModal) || (angular.isDefined(config.params) && angular.isDefined(config.params.showLoadingModal));
@@ -72,7 +76,18 @@
                 }
 
                 if ((showLoadingModalDefined && showLoadingModal) || (!showLoadingModalDefined && LoadingConfig.enableLoadingBlock)) {
-                    $('#loadingModal').modal('show');
+                    if (!$modal) {
+                        // Load modal lazily to avoid circular dependency
+                        $modal = $injector.get('$modal');
+                    }
+                    
+                    $modalInstance = $modal.open({
+                        templateUrl: LoadingConfig.templateUrl,
+                        windowTemplateUrl: LoadingConfig.templateUrl,
+                        backdrop: 'static',
+                        keyboard: false,
+                        windowClass: 'alert-modal-window'
+                    });
                     loadingModalCounter++;
                     config.openLoadingModal = true;
                 }
@@ -82,8 +97,8 @@
             requestError: function(rejection) {
                 if (rejection.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 
@@ -92,8 +107,8 @@
             response: function(response) {
                 if (response.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 
@@ -105,8 +120,8 @@
             responseError: function(rejection) {
                 if (rejection.config.openLoadingModal) {
                     loadingModalCounter--;
-                    if (loadingModalCounter === 0 && $('#loadingModal').hasClass('in')) {
-                        $('#loadingModal').modal('hide');
+                    if (loadingModalCounter === 0) {
+                        $modalInstance.dismiss();
                     }
                 }
 
