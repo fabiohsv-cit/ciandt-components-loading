@@ -20,13 +20,11 @@ Also it's possible to show a message after responses where the requests submit a
    ```html
    <link rel='stylesheet' href='assets/css/loading.css' type='text/css' media='all' />
    ```
-* Add loading.js and loading-directives.js to your code:
+* Add loading.js to your code:
 
    ```html
    <script src='assets/libs/ng-jedi-loading/loading.js'></script>
-   <script src='assets/libs/ng-jedi-loading/loading-directives.js'></script>
    ```
-   - note that the base directory used was assets/libs, you should change bower_components to assets/libs or move from bower_components to assets/libs with [Grunt](http://gruntjs.com/).
 * Include module dependency:
 
    ```javascript
