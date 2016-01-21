@@ -1,5 +1,5 @@
 /*
- ng-jedi-loading v0.0.2
+ ng-jedi-loading v0.0.3
  Loading component written in angularjs
  https://github.com/jediproject/ng-jedi-loading
 */
@@ -65,7 +65,7 @@
             alertHelper = $injector.get('jedi.dialogs.AlertHelper');
         }
         
-        var $modal, $modalInstance;
+        var modalHelper, $modalInstance;
         return {
             request: function(config) {
                 var showLoadingModalDefined = angular.isDefined(config.showLoadingModal) || angular.isDefined(config.headers.showLoadingModal) || (angular.isDefined(config.params) && angular.isDefined(config.params.showLoadingModal));
@@ -76,13 +76,12 @@
                 }
 
                 if ((showLoadingModalDefined && showLoadingModal) || (!showLoadingModalDefined && LoadingConfig.enableLoadingBlock)) {
-                    if (!$modal) {
+                    if (!modalHelper) {
                         // Load modal lazily to avoid circular dependency
-                        $modal = $injector.get('$modal');
+                        modalHelper = $injector.get('jedi.dialogs.ModalHelper');
                     }
                     
-                    $modalInstance = $modal.open({
-                        templateUrl: LoadingConfig.templateUrl,
+                    $modalInstance = modalHelper.open(LoadingConfig.templateUrl, {
                         windowTemplateUrl: LoadingConfig.templateUrl,
                         backdrop: 'static',
                         keyboard: false,
