@@ -27,12 +27,13 @@
                         modalHelper = $injector.get('jedi.dialogs.ModalHelper');
                     }
                     
-                    $modalInstance = modalHelper.open(LoadingConfig.templateUrl, {
+                    $modalInstance = modalHelper.open(LoadingConfig.templateUrl, undefined, undefined, undefined, {
                         windowTemplateUrl: LoadingConfig.templateUrl,
                         backdrop: 'static',
                         keyboard: false,
                         windowClass: 'alert-modal-window'
                     });
+                    
                     loadingModalCounter++;
                     config.openLoadingModal = true;
                 }
