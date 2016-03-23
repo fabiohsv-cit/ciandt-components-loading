@@ -8,7 +8,7 @@
   "description": "Loading component written in angularjs",
   "main": ["loading.js", "loading.css", "loading.html"],
   "dependencies": {
-	"ng-jedi-dialogs": "*"
+	"ng-jedi-dialogs": "#materialize"
   },
   "moduleType": [
     "globals"
